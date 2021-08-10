@@ -16,6 +16,8 @@ from models import RLNN
 from random_process import GaussianNoise, OrnsteinUhlenbeckProcess
 from memory import Memory
 from util import *
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 USE_CUDA = torch.cuda.is_available()
 if USE_CUDA:
