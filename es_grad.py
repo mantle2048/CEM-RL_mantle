@@ -1,13 +1,24 @@
-from copy import deepcopy
-import argparse
-
+import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+
+USE_CUDA = torch.cuda.is_available()
+if USE_CUDA:
+    FloatTensor = torch.cuda.FloatTensor
+else:
+    FloatTensor = torch.FloatTensor
+
+from copy import deepcopy
+import argparse
+
 import pandas as pd
 
 import gym
 import gym.spaces
+import pybullet_envs
 import numpy as np
 from tqdm import tqdm
 
@@ -16,14 +27,7 @@ from models import RLNN
 from random_process import GaussianNoise, OrnsteinUhlenbeckProcess
 from memory import Memory
 from util import *
-import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
-USE_CUDA = torch.cuda.is_available()
-if USE_CUDA:
-    FloatTensor = torch.cuda.FloatTensor
-else:
-    FloatTensor = torch.FloatTensor
 
 
 def evaluate(actor, env, memory=None, n_episodes=1, random=False, noise=None, render=False):
