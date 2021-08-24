@@ -67,6 +67,8 @@ coverage.xml
 
 # Django stuff:
 *.log
+logdir/
+tmp_CEM-RL/
 local_settings.py
 db.sqlite3
 
