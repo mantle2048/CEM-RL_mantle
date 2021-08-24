@@ -28,6 +28,7 @@ from random_process import GaussianNoise, OrnsteinUhlenbeckProcess
 from memory import Memory
 from util import *
 
+reward_freq = 20
 
 
 def evaluate(actor, env, memory=None, n_episodes=1, random=False, noise=None, render=False):
@@ -59,13 +60,35 @@ def evaluate(actor, env, memory=None, n_episodes=1, random=False, noise=None, re
         obs = deepcopy(env.reset())
         done = False
 
+        # For delayed-----------------------------------------
+        delayed_rew = 0.
+        delayed_step = 0
+        # For delayed-----------------------------------------
+
         while not done:
 
             # get next action and act
             action = policy(obs)
             n_obs, reward, done, _ = env.step(action)
+
+            # For delayed-----------------------------------------
+            delayed_rew += reward
+            delayed_step += 1
+            # For delayed-----------------------------------------
+
             done_bool = 0 if steps + \
                 1 == env._max_episode_steps else float(done)
+
+            # For delayed-----------------------------------------
+            if done_bool or delayed_step == reward_freq:
+                reward = delayed_rew
+                delayed_step = 0
+                delayed_rew = 0.
+            else:
+                reward = 0.
+            # For delayed-----------------------------------------
+
+
             score += reward
             steps += 1
 
