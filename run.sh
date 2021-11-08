@@ -2,13 +2,13 @@
 
 logdir="data"
 
-# envs=("HalfCheetah-v3")
+envs=("HalfCheetah-v3")
 # envs=("BipedalWalker-v3")
 # envs=("HalfCheetah-v3")
 # envs=("Hopper-v3" "Walker2d-v3")
 # envs=("Ant-v3")
 # envs=("Swimmer-v3")
-envs=("Humanoid-v3" "AntBulletEnv-v0" "Walker2DBulletEnv-v0")
+# envs=("AntBulletEnv-v0")
 # envs=("HalfCheetah-v3" "Ant-v3")
 
 # envs=("HalfCheetahBulletEnv-v0")
@@ -18,7 +18,7 @@ envs=("Humanoid-v3" "AntBulletEnv-v0" "Walker2DBulletEnv-v0")
 # envs=("HumanoidBulletEnv-v0")
 # envs=("HalfCheetah-v3")
 # envs=("Hopper-v3" "Walker2d-v3")
-seeds=(0 1 2 3 4)
+seeds=(4)
 
 for env in ${envs[@]}; do
     for seed in ${seeds[@]}; do
