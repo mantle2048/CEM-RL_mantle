@@ -28,7 +28,7 @@ from random_process import GaussianNoise, OrnsteinUhlenbeckProcess
 from memory import Memory
 from util import *
 
-reward_freq = 20
+reward_freq = 0
 
 
 def evaluate(actor, env, memory=None, n_episodes=1, random=False, noise=None, render=False):
@@ -80,7 +80,7 @@ def evaluate(actor, env, memory=None, n_episodes=1, random=False, noise=None, re
                 1 == env._max_episode_steps else float(done)
 
             # For delayed-----------------------------------------
-            if done_bool or delayed_step == reward_freq:
+            if done_bool or delayed_step >= reward_freq:
                 reward = delayed_rew
                 delayed_step = 0
                 delayed_rew = 0.
